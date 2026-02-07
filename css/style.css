@@ -1,3 +1,4 @@
+/* RESET */
 * {
   margin: 0;
   padding: 0;
@@ -11,19 +12,25 @@ body {
   line-height: 1.6;
 }
 
+/* UTIL */
 .container {
   width: 90%;
   max-width: 1100px;
   margin: auto;
 }
 
-/* HEADER */
+/* HEADER (slide down) */
 .site-header {
   background: #6fcf97;
   position: fixed;
-  top: 0;
+  top: -80px;              /* start hidden */
   width: 100%;
   z-index: 1000;
+  animation: headerDrop 0.9s ease-out forwards;
+}
+
+@keyframes headerDrop {
+  to { top: 0; }
 }
 
 .header-inner {
@@ -66,12 +73,17 @@ body {
   padding-top: 90px; /* space for fixed header */
 }
 
+/* HERO (fade + move up) */
 .hero {
   background: linear-gradient(135deg, #6fcf97, #a7e3c2);
   color: #083c2f;
   padding: 80px 0;
   text-align: center;
   border-radius: 0 0 24px 24px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 1s ease forwards;
+  animation-delay: 0.3s;
 }
 
 .hero h1 {
@@ -84,6 +96,7 @@ body {
   margin-bottom: 20px;
 }
 
+/* BUTTON */
 .btn-primary {
   display: inline-block;
   background: #0b3d2e;
@@ -92,17 +105,29 @@ body {
   border-radius: 8px;
   text-decoration: none;
   font-weight: 600;
+  transition: transform .2s ease, box-shadow .2s ease;
 }
 
 .btn-primary:hover {
-  opacity: 0.9;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0,0,0,0.15);
 }
 
-.intro {
-  padding: 60px 0;
-  text-align: center;
+/* SECTIONS (animate on scroll) */
+.intro,
+.features {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: all 0.8s ease;
 }
 
+.intro.show,
+.features.show {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* GRID */
 .features {
   padding: 40px 0 80px;
 }
@@ -118,6 +143,12 @@ body {
   padding: 24px;
   border-radius: 16px;
   box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+  transition: transform .2s ease, box-shadow .2s ease;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+  box-shadow: 0 10px 24px rgba(0,0,0,0.12);
 }
 
 /* FOOTER */
@@ -127,6 +158,18 @@ body {
   padding: 18px 0;
   text-align: center;
   margin-top: 40px;
+  opacity: 0;
+  transform: translateY(30px);
+  animation: fadeUp 0.9s ease forwards;
+  animation-delay: 0.6s;
+}
+
+/* ANIMATIONS */
+@keyframes fadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 /* RESPONSIVE */
